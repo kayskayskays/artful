@@ -1,0 +1,46 @@
+
+/* importing fonts */
+@font-face {
+    font-family: Newspaper;
+    src: url('res/font/newspaper.ttf');
+}
+
+/* default settings */
+* {
+    box-sizing: border-box;
+    font-family: Newspaper;
+    font-weight: normal;
+}
+
+/* website body */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: aliceblue;
+}
+
+/* nav bar box */
+.nav {
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: antiquewhite;
+}
+
+/* title heading box */
+div.title {
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: fit-content;
+    height: auto;
+    margin-left: 20%;
+}
+
+/* title heading text */
+div.title > p {
+    color: black;
+    font-size: 300%; 
+    letter-spacing: 2px;
+}
