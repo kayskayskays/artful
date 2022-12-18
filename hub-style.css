@@ -1,6 +1,8 @@
 
+/* storing variables */
 :root {
     --nav-height: 300px;
+    --border: 4px solid coral;
 }
 
 /* importing fonts */
@@ -23,12 +25,16 @@ html, body {
     background-color: aliceblue;
 }
 
-/* nav bar box */
-.nav {
+/* flex settings */
+.flex-start-center {
     float: left;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+/* nav bar box */
+.nav {
     width: 100%;
     height: var(--nav-height);
     position: sticky;
@@ -38,10 +44,6 @@ html, body {
 
 /* title heading box */
 .title {
-    float: left;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
     width: fit-content;
     height: auto;
     margin-left: 20%;
@@ -54,37 +56,20 @@ html, body {
     letter-spacing: 2px;
 }
 
-main {
-    padding-top: var(--nav-height);
-}
-
-.hidden {
-    background-color: transparent;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    line-height: 1;
-    border: none;
+.grid-container {
+    display: grid;
     width: 100%;
-    height: auto;
-    padding-left: 10%;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    padding-right: 10%;
-    margin: 0;
+    grid-template-columns: 120px 120px 1fr 1fr 200px;
+    grid-template-rows: 15% 400px 400px auto;
 }
 
-.hidden-text:hover {
-    text-decoration: underline; 
-    text-decoration-color: fuchsia;
-}
-
-.hidden-text {
-    color: fuchsia;
-    font-size: 200%;
-    letter-spacing: 1px;
+.hidden summary {
     list-style: none;
-    text-decoration: none;
+    font-size: 200%;
+}
+
+.hidden summary:hover {
+    text-decoration: underline;
 }
 
 .hidden-image {
@@ -92,7 +77,21 @@ main {
     padding-bottom: 10px;
 }
 
-.hidden > details {
-    width: 100%;
+.hidden-text {
+    color: mediumorchid;
+}
+
+#mn-1 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#mn-2 {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
