@@ -1,4 +1,8 @@
 
+:root {
+    --nav-height: 300px;
+}
+
 /* importing fonts */
 @font-face {
     font-family: Newspaper;
@@ -21,14 +25,19 @@ html, body {
 
 /* nav bar box */
 .nav {
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
-    position: fixed;
+    height: var(--nav-height);
+    position: sticky;
     z-index: 1;
     background-color: antiquewhite;
 }
 
 /* title heading box */
-div.title {
+.title {
     float: left;
     display: flex;
     justify-content: flex-start;
@@ -39,8 +48,51 @@ div.title {
 }
 
 /* title heading text */
-div.title > p {
+.title > p {
     color: black;
-    font-size: 300%; 
+    font-size: 75px; 
     letter-spacing: 2px;
 }
+
+main {
+    padding-top: var(--nav-height);
+}
+
+.hidden {
+    background-color: transparent;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 1;
+    border: none;
+    width: 100%;
+    height: auto;
+    padding-left: 10%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-right: 10%;
+    margin: 0;
+}
+
+.hidden-text:hover {
+    text-decoration: underline; 
+    text-decoration-color: fuchsia;
+}
+
+.hidden-text {
+    color: fuchsia;
+    font-size: 200%;
+    letter-spacing: 1px;
+    list-style: none;
+    text-decoration: none;
+}
+
+.hidden-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.hidden > details {
+    width: 100%;
+}
+
