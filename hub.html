@@ -9,31 +9,28 @@
 
     <body>
         
-        <header>
-            <nav class = "nav">
-                <div class = "title">
-                    <p>Welcome</p>
-                </div>
-            </nav>
-        </header>
+        <nav class = "nav flex-start-center">
+            <div class = "title flex-start-center">
+                <p>Welcome</p>
+            </div>
+        </nav>
         
-        <main>
-            <div class = "hidden">
+        <main class = "grid-container">
+
+            <div class = "hidden" id = "mn-1">
                 <details closed>
-                    <summary class = "hidden-text"> Hidden </summary>
-                    <img class = "hidden-image" src = 'res/images/dbeyt.jpeg' width = "200" height = auto>
+                    <summary> Hidden 1 </summary>
+                    <img class = "hidden-image" src = "res/images/dbeyt.jpeg" width = "200" height = auto>
                 </details>
             </div>
 
-            <div class = "hidden">
+            <div class = "hidden" id = "mn-2">
                 <details closed>
-                    <summary class = "hidden-text"> Hidden 2</summary>
-                    <span>
-                        <p>test</p>
-                    </span>
+                    <summary> Hidden 2 </summary>
+                    <p class = "hidden-text"> text </p>
                 </details>
             </div>
-            </div>
+
         </main> 
 
     </body>
