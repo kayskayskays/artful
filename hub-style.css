@@ -61,10 +61,7 @@ html, body {
 #grid-container {
     display: grid;
     width: 100%;
-    grid-template-columns: 240px 1fr 1fr 1fr;
-    grid-template-rows: 60px;
-    column-gap: 30px;
-    row-gap: 60px;
+    row-gap: 30px;
     white-space: nowrap;
 }
 
@@ -91,6 +88,15 @@ html, body {
     color: mediumorchid;
 }
 
+.hidden {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr 1fr;
+    grid-template-rows: 60px;
+    column-gap: 30px;
+}
+
 /* grid sidebar */
 .sb {
     padding-top: calc(var(--item-font-size) / 2);
@@ -98,16 +104,16 @@ html, body {
     grid-column: 1 / 2;
 }
 
+.mn {
+    grid-column: 2 / 3;
+}
+
+.sm {
+    grid-column: 3 / 4;
+}
+
 /* sidebar details */
 .sb summary {
     font-size: 18px;
 }
 
-/* sidebar items */
-#sb-1 {
-    grid-row: 2 / 3;
-}
-
-#sb-2 {
-    grid-row: 3 / 4;
-}
