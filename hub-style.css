@@ -61,9 +61,10 @@ html, body {
 #grid-container {
     display: grid;
     width: 100%;
-    grid-template-columns: 120px 120px 1fr 1fr 1fr 120px;
-    grid-template-rows: 60px 120px 120px auto;
+    grid-template-columns: 240px 1fr 1fr 1fr;
+    grid-template-rows: 60px;
     column-gap: 30px;
+    row-gap: 60px;
     white-space: nowrap;
 }
 
@@ -108,21 +109,5 @@ html, body {
 }
 
 #sb-2 {
-    grid-row: 3 / 4;
-}
-
-/* main items */
-#mn-1 {
-    grid-column: 3 / 4;
-    grid-row: 2 / 3;
-}
-
-#mn-2 {
-    grid-column: 4 / 5;
-    grid-row: 2 / 3;
-}
-
-#mn-3 {
-    grid-column: 3 / 5;
     grid-row: 3 / 4;
 }

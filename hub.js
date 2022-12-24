@@ -1,15 +1,31 @@
 
-"use strict";
+"use strict"; 
 
-var style, rowStart, bool, height, image, current, currentStyle, updated;
+var style, rowStart, bool, height, image, current, currentStyle, updated, summary, defaultWidth, index = 2;
 
 var grid = document.getElementById("grid-container");
+var current = ["60px"];
 
-// adding an event listener to each main element
+document.querySelectorAll('.mn').forEach(item => {
+
+    item.setAttribute("style", "grid-column: 2 / 3; grid-row: " + index + " / " + (index + 1));
+    defaultWidth = item.getAttribute("default");
+    current.push(defaultWidth);
+
+    current = current.join(" ");
+    grid.setAttribute("style", "grid-template-rows: " + current);
+
+    current = current.split(" ");
+    index++;
+
+})
+
+
+  // adding an event listener to each main element
 document.querySelectorAll('.mn').forEach(item => {
     
     // listening for clicks on the summary
-    var summary = item.getElementsByTagName("summary")[0];
+    summary = item.getElementsByTagName("summary")[0];
     summary.addEventListener('click', event => {
         
         // stores information about the current grid style
