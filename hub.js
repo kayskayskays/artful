@@ -1,20 +1,40 @@
 
 "use strict"; 
 
+// refactor so that height is adjusted to the height
+// of whatever is contained in the main tab
+
 var hiddenStyle, currentStyle, hidden, current, updatedHidden, updated;
-var rowStart, bool, height, image, defaultWidth, rows, docHeight = 0;
+var rowStart, bool, height, image, defaultWidth;
 var summary, details, detailList, index = 2;
 
 var grid = document.getElementById("grid-container");
 
+var main = document.querySelector('main');
+var html = document.querySelector('html');
+var body = document.querySelector('body');
+
+var docHeight = getComputedStyle(main).getPropertyValue('height');
+
 var current = ["60px"];
 
 var toggle = document.getElementById('toggle');
-var body = document.querySelector('html');
+
 
 toggle.onclick = function() {
     toggle.classList.toggle('active');
     body.classList.toggle('active');
+    html.classList.toggle('active');
+}
+
+function setDefaultHeights(item) {
+
+    var main = item.getElementsByClassName('mn')[0];
+    var summary = main.querySelector('summary');
+    var defaultHeight = getComputedStyle(summary).getPropertyValue('height');
+    defaultHeight = parseInt(defaultHeight.slice(0, defaultHeight.length -  2)) + 5;
+    item.setAttribute('default', defaultHeight + 'px');
+
 }
 
 
@@ -24,7 +44,7 @@ function createRows(item) {
     current.push(defaultWidth);
 
     current = current.join(" ");
-    item.setAttribute("style", "grid-row: " + index + " / " + (index + 1));
+    item.setAttribute("style", "grid-row: " + index + " / " + (index + 1) + "; grid-template-rows: " + defaultWidth);
     grid.setAttribute("style", "grid-template-rows: " + current);
 
     current = current.split(" ");
@@ -60,9 +80,6 @@ function getStyles(item, detail) {
     // checks whether the item has been clicked 
     bool = detail.getElementsByTagName('summary')[0].getAttribute("clicked");
 
-    // finds images // needs to be fixed
-    image = detail.getElementsByTagName("img")[0];
-
 }
 
 function updateStyles(item) {
@@ -86,6 +103,7 @@ function updateStyles(item) {
 
 document.querySelectorAll('.hidden').forEach(item => {
 
+    setDefaultHeights(item);
     createRows(item);
 
     // listening for clicks on the summaries
@@ -96,14 +114,25 @@ document.querySelectorAll('.hidden').forEach(item => {
             
             getStyles(item, detail);
 
-            if (image) { 
-            // changes to row height are only necessary if an image is present
+            var images = detail.getElementsByClassName('hidden-image');
+            var texts = detail.getElementsByClassName('hidden-text');
+
+            if (images.length > 0) {
+                var image = images[0];
                 height = image['height'] + 100 + 'px';
-                
                 updateStyles(item);
-                
+                setStyle(item, detail);
+            } else if (texts.length > 0) {
+                var text = texts[0];
+                height = text['clientHeight'] + 100 + 'px';
+                updateStyles(item);
                 setStyle(item, detail);
             }
+
+            docHeight = getComputedStyle(main).getPropertyValue('height');
+            html.setAttribute('style', 'height: ' + docHeight);
+            body.setAttribute('style', 'height: ' + docHeight);
+
         }) 
     })
 })
