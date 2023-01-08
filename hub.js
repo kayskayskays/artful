@@ -1,11 +1,8 @@
 
 "use strict"; 
 
-// refactor so that height is adjusted to the height
-// of whatever is contained in the main tab
-
 var hiddenStyle, currentStyle, hidden, current, updatedHidden, updated;
-var rowStart, bool, height, image, defaultWidth;
+var rowStart, bool, heights, image, defaultWidth;
 var summary, details, detailList, index = 2;
 
 var grid = document.getElementById("grid-container");
@@ -20,11 +17,33 @@ var current = ["60px"];
 
 var toggle = document.getElementById('toggle');
 
+var heights = [];
+var maxHeights = [];
+
 
 toggle.onclick = function() {
     toggle.classList.toggle('active');
     body.classList.toggle('active');
     html.classList.toggle('active');
+}
+
+function findMaxHeight(item, detail) {
+
+    var maxHeight = 0;
+
+    item.querySelectorAll('details').forEach(det => {
+
+        var propHeight = getComputedStyle(det).getPropertyValue('height');
+
+        if (det != detail) {
+            if (parseInt(propHeight.slice(0, propHeight.length - 2)) > maxHeight) {
+                maxHeight = parseInt(propHeight.slice(0, propHeight.length - 2));
+            } 
+        }
+    })
+
+    return maxHeight;
+
 }
 
 function setDefaultHeights(item) {
@@ -82,21 +101,29 @@ function getStyles(item, detail) {
 
 }
 
-function updateStyles(item) {
+function updateStyles(item, detail) {
     // updating the new style
     updated = [...current];
-    updated[rowStart - 1] = height;
+    updated[rowStart - 1] = heights[rowStart - 1];
     updated = updated.join(" ");
 
     // updating the hidden style
-    updatedHidden = [height];
+    updatedHidden = [heights[rowStart - 1]];
 
-    // reverting current style
-    current[rowStart - 1] = item.getAttribute('default');
+    maxHeights[rowStart - 1] = findMaxHeight(item, detail);
+
+    var defHeight = item.getAttribute('default');
+    defHeight = parseInt(defHeight.slice(0, defHeight.length - 2));
+
+    if (maxHeights[rowStart - 1] > defHeight) {
+        current[rowStart - 1] = maxHeights[rowStart - 1] + 'px';
+        hidden[0] = maxHeights[rowStart - 1] + 'px';
+    } else {
+        current[rowStart - 1] = item.getAttribute('default');
+        hidden[0] = item.getAttribute('default');
+    }
+
     current = current.join(" ");
-
-    // reverting hidden style
-    hidden[0] = item.getAttribute('default');
     hidden = hidden.join(" ");
 }
 
@@ -114,20 +141,27 @@ document.querySelectorAll('.hidden').forEach(item => {
             
             getStyles(item, detail);
 
-            var images = detail.getElementsByClassName('hidden-image');
-            var texts = detail.getElementsByClassName('hidden-text');
+            if (detail.getElementsByClassName('hidden-image').length > 0) {
+                var image = detail.getElementsByClassName('hidden-image')[0];
+                var propHeight = getComputedStyle(item).getPropertyValue('height');
 
-            if (images.length > 0) {
-                var image = images[0];
-                height = image['height'] + 100 + 'px';
-                updateStyles(item);
-                setStyle(item, detail);
-            } else if (texts.length > 0) {
-                var text = texts[0];
-                height = text['clientHeight'] + 100 + 'px';
-                updateStyles(item);
-                setStyle(item, detail);
+                if (parseInt(image['height']) + parseInt(getComputedStyle(detail.getElementsByTagName('summary')[0]).getPropertyValue('height') + 24) > parseInt(propHeight.slice(0, propHeight.length - 2))) {
+                    heights[rowStart - 1] = parseInt(image['height']) + parseInt(getComputedStyle(detail.getElementsByTagName('summary')[0]).getPropertyValue('height')) + 24 + 'px';
+                }
+
+            } else if (detail.getElementsByClassName('hidden-text').length > 0) {
+                var text = detail.getElementsByClassName('hidden-text')[0];
+                var propHeight = getComputedStyle(item).getPropertyValue('height');
+
+                if (parseInt(text['clientHeight']) + parseInt(getComputedStyle(detail.getElementsByTagName('summary')[0]).getPropertyValue('height')) + 24 > parseInt(propHeight.slice(0, propHeight.length - 2))) {
+                    heights[rowStart - 1] = parseInt(text['clientHeight']) + parseInt(getComputedStyle(detail.getElementsByTagName('summary')[0]).getPropertyValue('height')) + 24 + 'px';
+                }
+                
+
             }
+
+            updateStyles(item, detail);
+            setStyle(item, detail);
 
             docHeight = getComputedStyle(main).getPropertyValue('height');
             html.setAttribute('style', 'height: ' + docHeight);
