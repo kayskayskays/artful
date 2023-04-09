@@ -46,7 +46,7 @@ The ``` "hidden-text" ``` and ``` "hidden-image" ``` CSS classes are made to adj
 
 ### Credits
 
-Inspiration was drawn from https://www.pg-lang.com/.
+Inspiration was drawn from https://www.pg-lang.com/. <br>
 Project was curated by https://github.com/kayskayskays.
 
 
